@@ -4,11 +4,19 @@
 ////////////////////////////////////////
 */
 
-//concept for future add score point, more imaged details, collsions and more cows for the hard mode
+//concept for future add score point,music, title, more imaged details, collsions and more cows for the hard mode
 
 let cometX = 753;
 
 let cometY = 50;
+
+let crackX;
+
+let crackY;
+
+let beamX;
+
+let beamY;
 
 let backr= 255;
 let backg= 255;
@@ -58,7 +66,8 @@ var wait = 1000; // change this to change the 'ticking'
 
 var c;
 
-function preload () {
+function preload () 
+{
 
 cracked= loadImage ("images/cracked.png");
 
@@ -111,7 +120,7 @@ gameOver();
     gameOver();
   }
 	
-  print(state);
+  //print(state);
 
  if (cowX > 200 && cowX < 380 )
   {
@@ -144,18 +153,18 @@ function homescreen()
  function rules () 
  {
   textSize(30);
-background (0,0,0);
-fill(20, 200, 100, opacity);
+  background (0,0,0);
+  fill(20, 200, 100, opacity);
 
- //aliens saying hello 
-image (aliens, width - width / 2.6, height - height / 1.7, aliens.width / 1.2, aliens.height / 0.9); 
-text ("Hello humans",260, 25);
-//directions
-fill(20, 200, 100, opacity);
-  text("How to save cows.", 350, 75);
-fill(255,255,0,opacity);
-  text("Grab 5 cows", 750, 500);
-//fade each text in 30seconds
+        //aliens saying hello 
+    image (aliens, width - width / 2.6, height - height / 1.7, aliens.width / 1.2, aliens.height / 0.9); 
+    text ("Hello humans",260, 25);
+        //directions
+    fill(20, 200, 100, opacity);
+    text("How to save cows.", 350, 75);
+    fill(255,255,0,opacity);
+    text("Grab 5 cows", 750, 500);
+  //fade each text in 30seconds
 
   text("Miss 3 cows you lose", 750, 550);
 
@@ -169,10 +178,10 @@ fill(255,255,0,opacity);
 
   opacity= opacity + fade;
 
-if (opacity > 255 || opacity < 0) 
-	{
-		fade = +fade;
-	}
+  if (opacity > 255 || opacity < 0) 
+	  {
+		  fade = +fade;
+	  }
   print("opacity: " + opacity);
 	print("fade: " + fade);
 
@@ -194,10 +203,11 @@ let s = millis() / 1000;
   text(`Running time: ${nf(s, 1, 1)} sec`, 5, 100, 90);
 
 //flickering ray beam
-let g= random (255);
-let b= random (255);
+let r= random (200);
+let g= random (60);
+let b= random (200);
 
-fill (g,b,mouseY);
+fill (r,g,b);
 
 quad(600, 550, 500, 400, 300, 400, 150, 550);
 
@@ -236,35 +246,8 @@ fill (255,255,0); //yellow lights
 ellipse (500, 380, 15, 10);
 ellipse (305, 380, 15, 10);
 
-
 //comet
-
-fill(128,28,0);
-
-circle (cometX,cometY,size);
-size= random (50,100);
-cometX = cometX -0.6;
-
-cometY = cometY +0.8;
-
-if (cometY > height || cometX + size / 2 < 0) 
-  {
-    cometX = width - size / 2; // exact top-right edge
-    cometY = 0 - size / 2;     // start just above canvas
-  }
-
-//where the cow is able to go into
-
-strokeWeight (0);
-fill(0,255,0,100);//green, cow can only go up in this area 
-
-rect (200, 400, 380, 160);
-
-fill (0,0,255,40);//blue, cow needs to be taken into the ufo by UPARROW
-
-rect (200, 250, 380, 160);
-
-fill(200,100,60); //orange
+comet();
 
 //cow
 fill(180,60,20); //color of the cow
@@ -275,7 +258,7 @@ ellipse(cowX,cowY, height / 8, cowSize, cowSize);
 
 cowX =cowX +5; // you can get the cow into the beam about 5-7 times
 
-	//if 1 second has passed since last saved time, execute code block
+	                  //if 1 second has passed since last saved time, execute code block
 	if (currentTime - savedTime > timer) 
 	{
 		if (cowX > width)
@@ -313,16 +296,12 @@ cowX =cowX +5; // you can get the cow into the beam about 5-7 times
 
  if (cowY > 200 && cowY < 380 )
 
-{
+  {
 
-  cowY=  -120;
-  cowX = 550; 
+    cowY=  -120;
+    cowX = 550; 
 
-}
-
-}
-//timing of comet hitting the ship and then ground
-//chance of not hitting the ground, aliens pop up congratulating you
+  }
 
 //ground
 strokeWeight (0);
@@ -330,15 +309,23 @@ fill(127,127,127);
 rect (0,550,800,700);
 
 //timing of crack in the ground by comet
-//aliens popping out saying you failed try again
 
-//cracked ground
-image (cracked, width - width / 1.7, height - height / 3.2, cracked.width / 1.6, cracked.height / 2.5); 
+ if (cometX < 375 && cometY > 250 )
+  {
 
-//fill for ground
+    image (cracked, width - width / 1.7, height - height / 3.2, cracked.width / 1.6, cracked.height / 2.5); 
 
-fill (100,60,80,60);//set to red and opcaitiy to 30 to see box
-rect (150,550,450,350);
+  }
+
+    if (lazerbeam && cometX > 250 && cometY > 350) 
+       {
+
+        cometX = 753;
+
+        cometY = 50;
+       
+      }
+lazerbeam();
 
 //topclouds
 
@@ -366,18 +353,47 @@ fill (clouds,clouds,clouds,150);
 ellipse (650,50,200,80);
 ellipse (750,50,200,80);
 
-//lazerbeam
-if (key === 'f')
-    { image (beam, width /1.5, height /2.1);} 
-//when you hit the I key it disarms the lazerbeam
+}
 
-function cowbeamed(){
-if (keyIsDown(UP_ARROW) && !keyIsDown(SHIFT))
+function comet ()
 {
 
-  cowY= cowY - 60;
+  fill(128,28,0);
+
+  circle (cometX,cometY,size);
+  size= random (50,100);
+  cometX = cometX -0.6;
+
+  cometY = cometY +0.8;
+
+  if (cometY > height || cometX + size / 2 < 0) 
+    {
+      cometX = width - size / 2; // exact top-right edge
+      cometY = 0 - size / 2;     // start just above canvas
+    }
 
 }
+
+function lazerbeam () 
+{
+//lazerbeam
+  if (key === 'f')
+    { 
+
+      image (beam, width /1.5, height /2.1);
+      beam ===true;
+    } 
+      //when you hit the I key it disarms the lazerbeam
+}
+
+function cowbeamed()
+{
+  if (keyIsDown(UP_ARROW) && !keyIsDown(SHIFT))
+    {
+
+      cowY= cowY - 60;
+
+    }
 
 }
 
@@ -393,10 +409,11 @@ function gameOver()
   background(46, 8, 8);
   fill(200,255,55);
   textSize(46);
-  text("score_/5.", width/1.2, height/3.5 + 50);
+  text("score:.", width/1.2, height/3.5 + 50);
   fill(255);
   text("click to play again.", width/1.2, height/2.5 + 50);
 }
+
 function mousePressed() 
 {
   if (state == "homescreen") 
