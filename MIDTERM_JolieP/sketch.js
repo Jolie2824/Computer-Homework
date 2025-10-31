@@ -42,6 +42,8 @@ let currentTime = 0; //tracking millis() clock
 
 let savedTime = 0; // temp saved times, needed for comparison
 
+let cowUP= false;
+
 let cowX = 0; //variable for x value of ellipse (conspect for cow)
 
 let cowY =550; 
@@ -63,6 +65,7 @@ cracked= loadImage ("images/cracked.png");
 aliens= loadImage ("images/aliens.png");
 
 beam= loadImage ("images/beam.png");
+
 }
 
 function setup() {
@@ -90,6 +93,7 @@ homescreen();
 rules();
 game();
 gameOver();
+ 
   if (state == "homescreen") 
 	{
     homescreen();
@@ -108,7 +112,21 @@ gameOver();
   }
 	
   print(state);
-}
+
+ if (cowX > 200 && cowX < 380 )
+  {
+    cowUP = true;  // turn ON
+  } else {
+    cowUP = false; // turn OFF
+  }
+
+  // use the boolean to control a function or behavior
+  if (cowUP) {
+    cowbeamed(); // only runs when inside the area
+  }
+
+} 
+
 function homescreen() 
 {
    background(c);
@@ -121,7 +139,6 @@ function homescreen()
   fill(0);
   textSize(46);
   text("Click to start the game", width/1.1, height/2);
-
 }
 
  function rules () 
@@ -237,7 +254,7 @@ if (cometY > height || cometX + size / 2 < 0)
   }
 
 //where the cow is able to go into
-/*
+
 strokeWeight (0);
 fill(0,255,0,100);//green, cow can only go up in this area 
 
@@ -248,7 +265,7 @@ fill (0,0,255,40);//blue, cow needs to be taken into the ufo by UPARROW
 rect (200, 250, 380, 160);
 
 fill(200,100,60); //orange
-*/
+
 //cow
 fill(180,60,20); //color of the cow
 
@@ -287,20 +304,24 @@ cowX =cowX +5; // you can get the cow into the beam about 5-7 times
 	// print("savedTime: " + int(savedTime));
 
   //spot for arrow key so it can go up into the beam
-  if (keyIsDown(UP_ARROW) && !keyIsDown(SHIFT))
+  if (cowUP ==false) 
+  {
+
+    cowmoved();
+
+  }
+
+ if (cowY > 200 && cowY < 380 )
+
 {
-(cowX > 200 - 380 && cowX < 200 + 380)
-{
-  
-  cowY= cowY - 60;
+
+  cowY=  -120;
+  cowX = 550; 
 
 }
 
 }
-
-//else if (cowX > 200 - 380 && mouseX < 200 + 380)
-
-//timing of comet
+//timing of comet hitting the ship and then ground
 //chance of not hitting the ground, aliens pop up congratulating you
 
 //ground
@@ -312,11 +333,13 @@ rect (0,550,800,700);
 //aliens popping out saying you failed try again
 
 //cracked ground
-image (cracked, width - width / 2.2, height - height / 3.2, cracked.width / 2, cracked.height / 2.5); 
+image (cracked, width - width / 1.7, height - height / 3.2, cracked.width / 1.6, cracked.height / 2.5); 
 
 //fill for ground
-fill (127,127,127);
-rect (250,550,350,350);
+
+fill (100,60,80,60);//set to red and opcaitiy to 30 to see box
+rect (150,550,450,350);
+
 //topclouds
 
 fill (clouds,clouds,clouds,100);
@@ -347,6 +370,22 @@ ellipse (750,50,200,80);
 if (key === 'f')
     { image (beam, width /1.5, height /2.1);} 
 //when you hit the I key it disarms the lazerbeam
+
+function cowbeamed(){
+if (keyIsDown(UP_ARROW) && !keyIsDown(SHIFT))
+{
+
+  cowY= cowY - 60;
+
+}
+
+}
+
+function cowmoved () 
+{
+ 
+    cowX= cowX + 1;
+
 }
 
 function gameOver() 
