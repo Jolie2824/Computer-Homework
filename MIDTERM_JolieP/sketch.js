@@ -141,7 +141,8 @@ function homescreen()
    background(c);
 
   //check the difference between now and the previously stored time is greater than the wait interval
-  if ((millis() - time) >= wait) {
+  if ((millis() - time) >= wait) 
+    {
     c = color(random(255), random(255), random(255)) //if it is, change the background color
     time = millis(); //also update the stored time
   }
@@ -325,6 +326,7 @@ rect (0,550,800,700);
         cometY = 50;
        
       }
+    
 lazerbeam();
 
 //topclouds
