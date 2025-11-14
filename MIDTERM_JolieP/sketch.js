@@ -60,11 +60,11 @@ let increment = 60;	//variable for increment of x movement
 
 let cowSize = 100; //variable for circle diameter
 
-var backtime;
+let backtime;
 
-var wait = 1000; // change this to change the 'ticking'
+let wait = 1000; // change this to change the 'ticking'
 
-var c;
+let c;
 
 function preload () 
 {

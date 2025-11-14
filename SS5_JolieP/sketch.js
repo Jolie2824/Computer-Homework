@@ -3,9 +3,10 @@
 
 let y = 0;
 
-var wait = 1000; // change this to change the 'ticking'
+let wait = 1000; // change this to change the 'ticking'
 
-var c;
+let c;
+
 function setup() 
 {
 	createCanvas(500, 500);
@@ -20,8 +21,6 @@ function setup()
 function draw() 
 {
 	background(c);
-
-	let diameter = 50;
 
 	if ((millis() - time) >= wait) 
     {
@@ -52,7 +51,7 @@ function draw()
     }
 	}
 
-	fill(255,10,100);
+//you can add strokeweight to this
 
     for (let i = 0; i < width; i = i + 50) 
    {
@@ -64,4 +63,6 @@ function draw()
    {
      line(0, i, width, i);
    }
+
+   
 }
