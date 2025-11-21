@@ -14,7 +14,7 @@ let c;
 
 function setup() {
   createCanvas(800, 800);
-
+  frameRate (60);
   time = millis(); // store the current time
   //note: millis() returns the current number of milliseconds since starting the program.
   //This information is often used for timing events and animation sequences.
@@ -55,32 +55,9 @@ function draw() {
 
 	if ((millis() - time) >= wait) 
     {
-    c = color(random(255), random(255), random(255)) //if it is, change the background color
+    c = color(random(255), random(255), random(255),100) //if it is, change the background color
     time = millis(); //also update the stored time
   	}
-
-// Set the noise level and scale. ref from https://p5js.org/reference/p5/noise/
-
-	let noiseLevel = 255;
-
-  	let noiseScale = 0.05;
-
-  // Iterate from top to bottom.
-  for (let y = 0; y < height; y += 1) {
-    // Iterate from left to right.
-    for (let x = 0; x < width; x += 1) {
-      // Scale the input coordinates.
-      let nx = noiseScale * x;
-      let ny = noiseScale * y;
-
-      // Compute the noise value.
-      let b = noiseLevel * noise(nx, ny);
-
-      // Draw the point.
-      stroke(b);
-      point(x, y);
-    }
-	}
 
   for (let alien of aliens) {
     // Show the alien.
