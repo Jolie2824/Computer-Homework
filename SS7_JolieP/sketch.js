@@ -14,7 +14,9 @@ let c;
 
 function setup() {
   createCanvas(800, 800);
+
   frameRate (60);
+  
   time = millis(); // store the current time
   //note: millis() returns the current number of milliseconds since starting the program.
   //This information is often used for timing events and animation sequences.
