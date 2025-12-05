@@ -6,6 +6,8 @@
 
 //concept for future add score point,music, title, more imaged details, collsions and more cows for the hard mode
 
+comet= false;
+
 let cometX = 753;
 
 let cometY = 50;
@@ -268,6 +270,7 @@ image (cow, width - width / 1, height - height / 3.2, cow.width / 2, cow.height 
 //fill(180,60,20); //color of the cow
 
 currentTime = millis(); //update currentTime in draw so that it is continuously updating
+//image (cow, cowX,cowY,cowX, size)
 
 ellipse(cowX,cowY, height / 8, cowSize, cowSize);
 
@@ -327,13 +330,14 @@ image (grass, width- width /1, height- height /10, grass.width / 0.3, grass.heig
 
 //timing of crack in the ground by comet
 
- if (cometX < 375 && cometY > 250 )
+
+   if (comet ==false) 
   {
 
-    image (cracked, width - width / 1.7, height - height / 3.2, cracked.width / 1.6, cracked.height / 2.5); 
+    crash();
 
   }
-
+/*
     if (lazerbeam && cometX > 250 && cometY > 350) 
        {
 
@@ -342,7 +346,7 @@ image (grass, width- width /1, height- height /10, grass.width / 0.3, grass.heig
         cometY = 50;
        
       }
-    
+*/
 lazerbeam();
 
 //topclouds
@@ -389,6 +393,20 @@ function comet ()
       cometX = width - size / 2; // exact top-right edge
       cometY = 0 - size / 2;     // start just above canvas
     }
+  
+
+
+}
+
+function crash ()
+{
+
+ if (cometX < 375 && cometY > 250 )
+  {
+
+    image (cracked, width - width / 1.7, height - height / 3.2, cracked.width / 1.6, cracked.height / 2.5); 
+
+  }
 
 }
 
