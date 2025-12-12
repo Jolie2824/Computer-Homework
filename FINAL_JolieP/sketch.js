@@ -572,7 +572,7 @@ function mousePressed()
   
   if (state == "homescreen") 
 	{
-    //Music.play();
+    Music.play();
 
     state = "rules";
 
@@ -592,7 +592,7 @@ function mousePressed()
 	{
     
     state = "homescreen";
-    //Music.stop();
+    Music.stop();
   }
 }
 
