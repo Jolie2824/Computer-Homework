@@ -30,8 +30,6 @@ let savedTime = 0; // temp saved times, needed for comparison
 
 let cowUP= false;
 
-let ufoY= 425;
-
 let cowX = 0; //variable for x value of cow
 
 let cowY = 505; 
@@ -93,14 +91,16 @@ function draw()
   } 
 	else if (state == "gameOver") 
 	{
-    gameOver();
+    game();
+    //gameOver();
   }
 
- if (cowX > 200 && cowX < 380 )
+ if (cowX > 270 && cowX < 510 )//in the correct beam to go up
   {
     cowUP = true;  // turn ON
   } else {
     cowUP = false; // turn OFF
+  
   }
 
   // use the boolean to control a function or behavior
@@ -192,24 +192,15 @@ for (let i = 0; i < xCoordinates.length; i += 1) {
   text(score, 650, 220);
   
   //setting up a "winning" condition
-  if (score > 10){
+  if (score> 15)
+    {
     push();
       textSize(80);
       fill('red');
       text("YOU WIN", 20, 200);
     pop();
+    gameOver();
   }
-  //1 point
-  fill(100)
-  rect(270,505,80,300); 
-
-  //3 points
-  fill (255,0,0,100);
-  rect(350,505,80,300);
-
-  //1 point
-  fill (0,0,255,100);
-  rect(430,505,70,300);
 
 currentTime = millis(); //update currentTime in draw so that it is continuously updating
 image (sleepy,cowX,cowY, cowSizew, cowSizeh); 
@@ -224,20 +215,21 @@ cowX =cowX +5; // you can get the cow into the beam about 5-7 times
 			cowX = 0;
 		} 
   
-    if (cowY < 400)
+    if (cowY < 400)//400
 
     {
 
-      cowY = 505;
+      cowY = 505;//505
 
     }
+    /*
      else if (cowY > 200)//OG 200
 
       {
 
         fill (0);
 
-      }
+      */
 		savedTime = currentTime; //assign value of currentTime to savedTime
 	}
 
@@ -249,14 +241,26 @@ cowX =cowX +5; // you can get the cow into the beam about 5-7 times
 
   }
 
- if (cowY > 400 && cowY < 500 )
+ if (cowY > 400 && cowY < 500 )//OG 400 && 500
 
   {
 
-    cowY=  -120;
-    cowX = 550; 
+    cowY=  -120;//how high
+    cowX = 550; //where the cow stays
 
   }
+
+//1 point
+  fill(80,100,80,100);
+  rect(270,505,80,300); 
+  
+  //3 points
+  fill (255,0,0,100);
+  rect(350,505,80,300);
+
+  //1 point
+  fill (0,0,255,100);
+  rect(430,505,70,300);
 
 //ground
 //change to grass gif
@@ -274,8 +278,32 @@ function cowbeamed()
 
     }
 
+  if (keyIsDown(UP_ARROW) && !keyIsDown(SHIFT))
+    {
+      score++; 
+    }
+/*
+  if (cowY > 350 && cowY < 430)
+  {
+    //3 point
+    score*2;
+  }
+  */
 }
 
+/*
+  //1 point
+  fill(100);
+  rect(270,505,80,300); 
+  
+  //3 points
+  fill (255,0,0,100);
+  rect(350,505,80,300);
+
+  //1 point
+  fill (0,0,255,100);
+  rect(430,505,70,300);
+*/
 function cowmoved () 
 {
  
@@ -293,20 +321,10 @@ function gameOver()
   text("click to play again.", width/1.2, height/2.5 + 50);
 }
 
+
+
 function mousePressed() 
 {
-  
-if (keyCode === UP_ARROW)
-  {
-    score++; 
-  }
-else
-  if (cowY >= ufoY)
-  {
-
-    score++;
-
-  }
 
  if (state== "game") 
   {
@@ -317,7 +335,7 @@ else
 	else if (state == "gameOver") 
 	{
     
-    state = "homescreen";
+    state = "gameOver";
    
   }
 }
