@@ -250,18 +250,6 @@ cowX =cowX +5; // you can get the cow into the beam about 5-7 times
 
   }
 
-//1 point
-  fill(80,100,80,100);
-  rect(270,505,80,300); 
-  
-  //3 points
-  fill (255,0,0,100);
-  rect(350,505,80,300);
-
-  //1 point
-  fill (0,0,255,100);
-  rect(430,505,70,300);
-
 //ground
 //change to grass gif
 strokeWeight (0);
